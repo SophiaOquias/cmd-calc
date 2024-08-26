@@ -1,10 +1,12 @@
 #[cfg(test)]
 mod tests {
     use std::collections::VecDeque;
+    use float_cmp::assert_approx_eq;
 
     use crate::tokenizer::parse_input;
     use crate::tokenizer::Element; 
     use crate::shunting_yard::convert_postfix; 
+    use crate::evaluator::evaluate; 
 
     #[test]
     fn test_parse_input() {
@@ -182,5 +184,44 @@ mod tests {
         let result = convert_postfix(infix);
         let expected: VecDeque<Element> = VecDeque::new();
         assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_evaluate_simple_operation() {
+        let infix = VecDeque::from(vec![
+            Element::Integer(3),
+            Element::Operator('+'),
+            Element::Integer(4),
+            Element::Operator('*'),
+            Element::Integer(5),
+        ]);
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix); 
+        let expected = 23.; 
+
+        assert_eq!(result, expected); 
+    }
+
+    #[test]
+    fn test_evaluate_complex_operation() {
+        // 12 + 34 * (56 - 78 / 9)
+        let infix = VecDeque::from(vec![
+            Element::Integer(12),
+            Element::Operator('+'),
+            Element::Integer(34),
+            Element::Operator('*'),
+            Element::Operator('('),
+            Element::Integer(56),
+            Element::Operator('-'),
+            Element::Integer(78),
+            Element::Operator('/'),
+            Element::Integer(9),
+            Element::Operator(')'),
+        ]);
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix); 
+        let expected = 1621.33; 
+
+        assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
     }
 }
