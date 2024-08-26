@@ -3,13 +3,13 @@ use crate::helpers::is_operator;
 
 #[derive(Debug)]
 #[derive(PartialEq)]
-pub(crate) enum Element {
+pub enum Element {
     Integer(i32),
     // Float(f64), 
     Operator(char)
 }
 
-pub(crate) fn parse_input(input: String) -> VecDeque<Element> {
+pub fn parse_input(input: String) -> VecDeque<Element> {
     let mut output: VecDeque<Element> = VecDeque::new(); 
     let mut temp: String = "".to_string(); 
 

@@ -2,7 +2,7 @@ use std::collections::VecDeque;
 use crate::tokenizer::Element;
 use crate::helpers;
 
-pub(crate) fn convert_postfix(infix: VecDeque<Element>) -> VecDeque<Element>{
+pub fn convert_postfix(infix: VecDeque<Element>) -> VecDeque<Element>{
 
     let mut op_stack: Vec<char> = Vec::new(); 
     let mut out_queue: VecDeque<Element> = VecDeque::new(); 

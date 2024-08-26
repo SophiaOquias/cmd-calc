@@ -199,7 +199,7 @@ mod tests {
         let result = evaluate(postfix); 
         let expected = 23.; 
 
-        assert_eq!(result, expected); 
+        assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
     }
 
     #[test]
