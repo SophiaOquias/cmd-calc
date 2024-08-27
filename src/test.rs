@@ -13,18 +13,18 @@ mod tests {
         let input = "100 + 2 / (5*34*2 +7)".to_string();
         let result = parse_input(input); 
         let expected = VecDeque::from(vec![
-            Element::Integer(100), 
+            Element::Number(100.), 
             Element::Operator('+'),
-            Element::Integer(2), 
+            Element::Number(2.), 
             Element::Operator('/'), 
             Element::Operator('('), 
-            Element::Integer(5), 
+            Element::Number(5.), 
             Element::Operator('*'),
-            Element::Integer(34), 
+            Element::Number(34.), 
             Element::Operator('*'), 
-            Element::Integer(2), 
+            Element::Number(2.), 
             Element::Operator('+'), 
-            Element::Integer(7), 
+            Element::Number(7.), 
             Element::Operator(')') 
         ]);
 
@@ -36,14 +36,14 @@ mod tests {
         let input = "10 0 + 2 * 5+3".to_string(); 
         let result = parse_input(input); 
         let expected = VecDeque::from(vec![
-            Element::Integer(10), 
-            Element::Integer(0),
+            Element::Number(10.), 
+            Element::Number(0.),
             Element::Operator('+'), 
-            Element::Integer(2), 
+            Element::Number(2.), 
             Element::Operator('*'), 
-            Element::Integer(5), 
+            Element::Number(5.), 
             Element::Operator('+'), 
-            Element::Integer(3)
+            Element::Number(3.)
         ]);
 
         assert_eq!(result, expected); 
@@ -54,9 +54,9 @@ mod tests {
         let input = "100 * 5".to_string(); 
         let result = parse_input(input); 
         let expected = VecDeque::from(vec![
-            Element::Integer(100), 
+            Element::Number(100.), 
             Element::Operator('*'), 
-            Element::Integer(5)
+            Element::Number(5.)
         ]); 
         
         assert_eq!(result, expected);
@@ -65,14 +65,14 @@ mod tests {
     #[test]
     fn test_simple_addition() {
         let infix = VecDeque::from(vec![
-            Element::Integer(3),
+            Element::Number(3.),
             Element::Operator('+'),
-            Element::Integer(4),
+            Element::Number(4.),
         ]);
         let result = convert_postfix(infix);
         let expected = VecDeque::from(vec![
-            Element::Integer(3),
-            Element::Integer(4),
+            Element::Number(3.),
+            Element::Number(4.),
             Element::Operator('+'),
         ]);
         assert_eq!(result, expected);
@@ -81,17 +81,17 @@ mod tests {
     #[test]
     fn test_addition_and_multiplication() {
         let infix = VecDeque::from(vec![
-            Element::Integer(3),
+            Element::Number(3.),
             Element::Operator('+'),
-            Element::Integer(4),
+            Element::Number(4.),
             Element::Operator('*'),
-            Element::Integer(5),
+            Element::Number(5.),
         ]);
         let result = convert_postfix(infix);
         let expected = VecDeque::from(vec![
-            Element::Integer(3),
-            Element::Integer(4),
-            Element::Integer(5),
+            Element::Number(3.),
+            Element::Number(4.),
+            Element::Number(5.),
             Element::Operator('*'),
             Element::Operator('+'),
         ]);
@@ -101,19 +101,19 @@ mod tests {
     #[test]
     fn test_with_parentheses() {
         let infix = VecDeque::from(vec![
-            Element::Integer(3),
+            Element::Number(3.),
             Element::Operator('+'),
             Element::Operator('('),
-            Element::Integer(4),
+            Element::Number(4.),
             Element::Operator('*'),
-            Element::Integer(5),
+            Element::Number(5.),
             Element::Operator(')'),
         ]);
         let result = convert_postfix(infix);
         let expected = VecDeque::from(vec![
-            Element::Integer(3),
-            Element::Integer(4),
-            Element::Integer(5),
+            Element::Number(3.),
+            Element::Number(4.),
+            Element::Number(5.),
             Element::Operator('*'),
             Element::Operator('+'),
         ]);
@@ -123,25 +123,25 @@ mod tests {
     #[test]
     fn test_complex_expression() {
         let infix = VecDeque::from(vec![
-            Element::Integer(12),
+            Element::Number(12.),
             Element::Operator('+'),
-            Element::Integer(34),
+            Element::Number(34.),
             Element::Operator('*'),
             Element::Operator('('),
-            Element::Integer(56),
+            Element::Number(56.),
             Element::Operator('-'),
-            Element::Integer(78),
+            Element::Number(78.),
             Element::Operator('/'),
-            Element::Integer(9),
+            Element::Number(9.),
             Element::Operator(')'),
         ]);
         let result = convert_postfix(infix);
         let expected = VecDeque::from(vec![
-            Element::Integer(12),
-            Element::Integer(34),
-            Element::Integer(56),
-            Element::Integer(78),
-            Element::Integer(9),
+            Element::Number(12.),
+            Element::Number(34.),
+            Element::Number(56.),
+            Element::Number(78.),
+            Element::Number(9.),
             Element::Operator('/'),
             Element::Operator('-'),
             Element::Operator('*'),
@@ -153,14 +153,14 @@ mod tests {
     #[test]
     fn test_single_operator() {
         let infix = VecDeque::from(vec![
-            Element::Integer(5),
+            Element::Number(5.),
             Element::Operator('-'),
-            Element::Integer(2),
+            Element::Number(2.),
         ]);
         let result = convert_postfix(infix);
         let expected = VecDeque::from(vec![
-            Element::Integer(5),
-            Element::Integer(2),
+            Element::Number(5.),
+            Element::Number(2.),
             Element::Operator('-'),
         ]);
         assert_eq!(result, expected);
@@ -169,11 +169,11 @@ mod tests {
     #[test]
     fn test_only_numbers() {
         let infix = VecDeque::from(vec![
-            Element::Integer(42),
+            Element::Number(42.),
         ]);
         let result = convert_postfix(infix);
         let expected = VecDeque::from(vec![
-            Element::Integer(42),
+            Element::Number(42.),
         ]);
         assert_eq!(result, expected);
     }
@@ -189,11 +189,11 @@ mod tests {
     #[test]
     fn test_evaluate_simple_operation() {
         let infix = VecDeque::from(vec![
-            Element::Integer(3),
+            Element::Number(3.),
             Element::Operator('+'),
-            Element::Integer(4),
+            Element::Number(4.),
             Element::Operator('*'),
-            Element::Integer(5),
+            Element::Number(5.),
         ]);
         let postfix = convert_postfix(infix); 
         let result = evaluate(postfix); 
@@ -206,21 +206,60 @@ mod tests {
     fn test_evaluate_complex_operation() {
         // 12 + 34 * (56 - 78 / 9)
         let infix = VecDeque::from(vec![
-            Element::Integer(12),
+            Element::Number(12.),
             Element::Operator('+'),
-            Element::Integer(34),
+            Element::Number(34.),
             Element::Operator('*'),
             Element::Operator('('),
-            Element::Integer(56),
+            Element::Number(56.),
             Element::Operator('-'),
-            Element::Integer(78),
+            Element::Number(78.),
             Element::Operator('/'),
-            Element::Integer(9),
+            Element::Number(9.),
             Element::Operator(')'),
         ]);
         let postfix = convert_postfix(infix); 
         let result = evaluate(postfix); 
         let expected = 1621.33; 
+
+        assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
+    }
+
+    #[test]
+    fn test_evaluate_simple_operation_float() {
+        let infix = VecDeque::from(vec![
+            Element::Number(3.25),
+            Element::Operator('+'),
+            Element::Number(4.333),
+            Element::Operator('*'),
+            Element::Number(5.),
+        ]);
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix); 
+        let expected = 24.915; 
+
+        assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
+    }
+
+    #[test]
+    fn test_evaluate_complex_operation_float() {
+        // 12.5 + 34 * (56.33 - 78.91 / 9.005)
+        let infix = VecDeque::from(vec![
+            Element::Number(12.5),
+            Element::Operator('+'),
+            Element::Number(34.),
+            Element::Operator('*'),
+            Element::Operator('('),
+            Element::Number(56.33),
+            Element::Operator('-'),
+            Element::Number(78.91),
+            Element::Operator('/'),
+            Element::Number(9.005),
+            Element::Operator(')'),
+        ]);
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix); 
+        let expected = 1629.78107717934; 
 
         assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
     }

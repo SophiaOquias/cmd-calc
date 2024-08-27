@@ -4,12 +4,11 @@ use crate::helpers::is_operator;
 #[derive(Debug)]
 #[derive(PartialEq)]
 pub enum Element {
-    Integer(i32),
-    // Float(f64), 
+    Number(f64),
     Operator(char)
 }
 
-pub fn parse_input(input: String) -> VecDeque<Element> {
+pub(crate) fn parse_input(input: String) -> VecDeque<Element> {
     let mut output: VecDeque<Element> = VecDeque::new(); 
     let mut temp: String = "".to_string(); 
 
@@ -20,7 +19,7 @@ pub fn parse_input(input: String) -> VecDeque<Element> {
         else {
             if !temp.is_empty() {
                 let number = temp.parse().expect("Error parsing to int");
-                output.push_back(Element::Integer(number)); 
+                output.push_back(Element::Number(number)); 
                 temp = "".to_string(); 
             } 
             if ch != ' ' && is_operator(ch) {
@@ -31,7 +30,7 @@ pub fn parse_input(input: String) -> VecDeque<Element> {
 
     if !temp.is_empty() {
         let number = temp.parse().expect("Error parsing to int");
-        output.push_back(Element::Integer(number)); 
+        output.push_back(Element::Number(number)); 
     }
 
     return output; 

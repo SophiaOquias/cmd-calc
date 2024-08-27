@@ -16,7 +16,7 @@ pub fn evaluate(mut postfix: VecDeque<Element>) -> f64 {
 
     while let Some(front) = postfix.pop_front() {
         match front {
-            Element::Integer(i) => stack.push(i as f64), 
+            Element::Number(i) => stack.push(i as f64), 
             Element::Operator(o) => {
                 let op2: f64 = stack.pop().unwrap_or_default(); 
                 let op1: f64 = stack.pop().unwrap_or_default();

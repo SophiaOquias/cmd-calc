@@ -10,7 +10,7 @@ pub fn convert_postfix(infix: VecDeque<Element>) -> VecDeque<Element>{
     for item in &infix {
 
         match item {
-            Element::Integer(i) => out_queue.push_back(Element::Integer(*i)), 
+            Element::Number(i) => out_queue.push_back(Element::Number(*i)), 
             Element::Operator(o) => {
                 match *o {
                     '(' => op_stack.push(*o),
