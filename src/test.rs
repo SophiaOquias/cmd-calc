@@ -263,4 +263,58 @@ mod tests {
 
         assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
     }
+
+    #[test]
+    fn test_unary_minus_with_multiplication() {
+        let input = "3 * -4".to_string(); // Using parse_input
+        let infix = parse_input(input);
+        let postfix = convert_postfix(infix);
+        let result = evaluate(postfix); 
+        let expected = -12.;
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_unary_minus_in_expression() {
+        let input = "5 + (-3 * 4)".to_string(); // Using parse_input
+        let infix = parse_input(input);
+        let postfix = convert_postfix(infix);
+        let result = evaluate(postfix);
+        let expected = -7.;
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_evaluate_unary_minus_simple() {
+        let input = "-3 + 4".to_string(); // Using parse_input
+        let infix = parse_input(input);
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix); 
+        let expected = 1.; // -3 + 4 = 1
+
+        assert_eq!(result, expected); 
+    }
+
+    #[test]
+    fn test_evaluate_unary_minus_with_multiplication() {
+        let input = "3 * -4".to_string(); // Using parse_input
+        let infix = parse_input(input);
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix); 
+        let expected = -12.; // 3 * -4 = -12
+
+        assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
+    }
+
+    #[test]
+    fn test_evaluate_unary_minus_in_expression() {
+        let input = "5 + (-3 * 4)".to_string(); // Using parse_input
+        let infix = parse_input(input);
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix); 
+        let expected = -7.; // 5 + (-3 * 4) = -7
+
+        assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
+    }
+
 }

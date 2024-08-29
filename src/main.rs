@@ -11,11 +11,12 @@ mod evaluator;
 
 fn main() {
 
-    let parsed: VecDeque<Element> = tokenizer::parse_input("10 + 6 * (34 - 6 / 2 + 6 / 2)".to_string()); // 214
+    let parsed: VecDeque<Element> = tokenizer::parse_input("-7".to_string()); // 214
+    println!("parsed: {:?}", parsed); 
     let output: VecDeque<Element> = shunting_yard::convert_postfix(parsed); 
+    println!("converted: {:?}", output);
 
     let result = evaluate(output); 
-
-    print!("result: {}", result); 
+    println!("result: {}", result); 
 
 }
