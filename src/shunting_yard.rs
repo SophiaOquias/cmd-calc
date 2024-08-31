@@ -4,7 +4,10 @@ use crate::helpers;
 
 fn handle_precedence(op_stack: &mut Vec<char>, out_queue: &mut VecDeque<Element>, operator: char) {
     while let Some(top) = op_stack.last() {
-        if helpers::get_op_value(*top) >= helpers::get_op_value(operator) {
+        let (top_prec, _top_right_assoc) = helpers::get_op_value(*top);
+        let (op_prec, op_right_assoc) = helpers::get_op_value(operator); 
+
+        if top_prec > op_prec || (top_prec == op_prec && !op_right_assoc) {
             out_queue.push_back(Element::Operator(*top)); 
             op_stack.pop(); 
         }
@@ -61,6 +64,11 @@ pub fn convert_postfix(mut infix: VecDeque<Element>) -> VecDeque<Element>{
                             handle_precedence(&mut op_stack, &mut out_queue, o); 
                             op_stack.push(o);
                         }
+                        expect_unary = true; 
+                    }
+                    '^' => {
+                        handle_precedence(&mut op_stack, &mut out_queue, o); 
+                        op_stack.push(o); 
                         expect_unary = true; 
                     }
                     _ => {

@@ -7,6 +7,7 @@ fn perform_operation(op1: f64, op2: f64, operation: char) -> f64 {
         '/' => return op1 / op2, 
         '+' => return op1 + op2, 
         '-' => return op1 - op2,
+        '^' => return op1.powf(op2), 
         _ => return 0., 
     }
 }

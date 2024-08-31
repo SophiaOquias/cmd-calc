@@ -317,4 +317,54 @@ mod tests {
         assert_approx_eq!(f64, result, expected, epsilon = 0.01); 
     }
 
+    #[test]
+    fn test_evaluate_simple_exponentiation() {
+        // 2 ^ 3 = 8
+        let infix = parse_input("2 ^ 3".to_string());
+        let postfix = convert_postfix(infix);
+        let result = evaluate(postfix);
+        let expected = 8.0;
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_evaluate_exponent_with_unary_minus() {
+        // -2 ^ 3 = -8
+        let infix = parse_input("-2 ^ 3".to_string());
+        let postfix = convert_postfix(infix);
+        let result = evaluate(postfix);
+        let expected = -8.0;
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_evaluate_complex_expression_with_exponents() {
+        // 2 + 3 ^ 2 * 2 = 20
+        let infix = parse_input("2 + 3 ^ 2 * 2".to_string());
+        let postfix = convert_postfix(infix);
+        let result = evaluate(postfix);
+        let expected = 20.0;
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_evaluate_expression_with_parentheses_and_exponents() {
+        // (2 + 3) ^ 2 = 25
+        let infix = parse_input("(2 + 3) ^ 2".to_string());
+        let postfix = convert_postfix(infix);
+        let result = evaluate(postfix);
+        let expected = 25.0;
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_evaluate_expression_with_multiple_exponents() {
+        // 2 ^ 3 ^ 2 = 512
+        let infix = parse_input("2 ^ 3 ^ 2".to_string());
+        let postfix = convert_postfix(infix);
+        let result = evaluate(postfix);
+        let expected = 512.0;
+        assert_eq!(result, expected);
+    }
+
 }
