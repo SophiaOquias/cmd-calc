@@ -265,6 +265,28 @@ mod tests {
     }
 
     #[test]
+    fn test_evaulate_complex_operation_float_string_input() {
+        let input = "12.5 + 34 * (56.33 - 78.91 / 9.005)".to_string();
+        let infix = parse_input(input); 
+        let postfix = convert_postfix(infix); 
+        let result = evaluate(postfix);
+        let expected = 1629.78107717934; 
+
+        assert_approx_eq!(f64, result, expected, epsilon = 0.01);
+    }
+
+    #[test]
+    fn test_parse_float() {
+        let input = "0.5".to_string(); 
+        let parsed = parse_input(input); 
+        let expected = VecDeque::from(vec![
+            Element::Number(0.5), 
+        ]);
+
+        assert_eq!(parsed, expected); 
+    }
+
+    #[test]
     fn test_unary_minus_with_multiplication() {
         let input = "3 * -4".to_string(); // Using parse_input
         let infix = parse_input(input);

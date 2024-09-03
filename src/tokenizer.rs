@@ -13,7 +13,7 @@ pub(crate) fn parse_input(input: String) -> VecDeque<Element> {
     let mut temp: String = "".to_string(); 
 
     for ch in input.chars() {
-        if ch.is_digit(10) {
+        if ch.is_digit(10) || ch == '.' {
             temp.push(ch); 
         }
         else {
